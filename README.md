@@ -1,73 +1,125 @@
-# Welcome to your Lovable project
+# GameArena Esports Platform - Frontend
 
-## Project info
+Production-ready React frontend for a complete esports platform with Watch & Earn rewarded video integration.
 
-**URL**: https://lovable.dev/projects/cc7a3e03-adb2-41c7-87f4-9d8a6fe9be19
+## 🎮 Features
 
-## How can I edit this code?
+- **User Authentication**: Login/Signup with JWT token management
+- **Tournaments**: Browse and register for esports competitions
+- **Leaderboards**: Real-time rankings per game
+- **Watch & Earn**: Rewarded video ads system (integration-ready)
+- **Wallet System**: In-app credits management
+- **Admin Panel**: User management, tournaments, payouts, ad audits
+- **Responsive Design**: Mobile-first dark gaming aesthetic
 
-There are several ways of editing your application.
+## 🚀 Quick Start
 
-**Use Lovable**
+```bash
+# Install dependencies
+npm install
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/cc7a3e03-adb2-41c7-87f4-9d8a6fe9be19) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Run development server
 npm run dev
+
+# Build for production
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 🔌 Backend Integration
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This frontend is designed to connect to your NestJS backend. Update the API base URL:
 
-**Use GitHub Codespaces**
+```typescript
+// src/services/api.ts
+const API_BASE_URL = 'http://your-backend-url:3000/api';
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Key Integration Points:
 
-## What technologies are used for this project?
+1. **Authentication** (`src/services/api.ts` - authApi)
+   - POST `/auth/login`
+   - POST `/auth/signup`
+   - POST `/auth/refresh`
 
-This project is built with:
+2. **Rewarded Ads** (`src/components/rewards/RewardedPlayer.tsx`)
+   - GET `/rewards/request-token` - Get server-signed token
+   - POST `/rewards/claim` - Verify and credit reward
+   - See component comments for ad SDK integration
 
+3. **Tournaments, Games, Leaderboards** - All API calls stubbed in `src/services/api.ts`
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── layout/         # Navbar, Footer
+│   ├── rewards/        # RewardedPlayer component
+│   └── ui/            # shadcn components
+├── pages/             # All route pages
+├── services/          # API integration layer
+├── types/             # TypeScript type definitions
+└── lib/              # Utilities
+```
+
+## 🎨 Design System
+
+- **Colors**: Gaming dark theme with electric blue/purple gradients
+- **Tokens**: All defined in `src/index.css` and `tailwind.config.ts`
+- **Animations**: Fade, scale, glow effects for interactive feel
+
+## 🔐 Environment Variables
+
+Create `.env.local`:
+
+```
+VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+## 📝 Type Definitions
+
+Shared types for frontend/backend communication in `src/types/api.ts`:
+- User, Profile, Tournament, Game, Wallet types
+- Auth request/response types
+- Reward claim types
+
+## 🎬 Ad Network Integration
+
+To integrate real rewarded video ads:
+
+1. Install ad SDK (Google IMA, AdMob, etc.)
+2. Update `src/components/rewards/RewardedPlayer.tsx`
+3. Replace mock ad player with real SDK initialization
+4. Update backend to verify with ad network server-to-server
+
+See detailed comments in the RewardedPlayer component.
+
+## 🛠️ Tech Stack
+
+- React 18 + TypeScript
 - Vite
-- TypeScript
-- React
-- shadcn-ui
 - Tailwind CSS
+- shadcn/ui components
+- React Router
+- TanStack Query
+- Sonner (toasts)
 
-## How can I deploy this project?
+## 📦 Available Scripts
 
-Simply open [Lovable](https://lovable.dev/projects/cc7a3e03-adb2-41c7-87f4-9d8a6fe9be19) and click on Share -> Publish.
+- `npm run dev` - Start dev server (port 8080)
+- `npm run build` - Production build
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-## Can I connect a custom domain to my Lovable project?
+## 🔗 Next Steps
 
-Yes, you can!
+1. Connect to your NestJS backend
+2. Update API endpoints in `src/services/api.ts`
+3. Integrate real ad network SDK in RewardedPlayer
+4. Implement WebSocket for live match updates
+5. Add admin routes and components
+6. Set up CI/CD pipeline
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 📄 License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+All rights reserved.
