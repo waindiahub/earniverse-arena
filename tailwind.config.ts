@@ -85,12 +85,36 @@ export default {
           "100%": { transform: "scale(1)", opacity: "1" },
         },
         "glow-pulse": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(193 100% 50% / 0.3)" },
-          "50%": { boxShadow: "0 0 40px hsl(193 100% 50% / 0.6)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(180 100% 50% / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(180 100% 50% / 0.6)" },
+        },
+        "glow-pulse-pink": {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(330 100% 60% / 0.3)" },
+          "50%": { boxShadow: "0 0 40px hsl(330 100% 60% / 0.6)" },
         },
         "slide-in-right": {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(0)" },
+        },
+        "slide-in-left": {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        "slide-up": {
+          "0%": { transform: "translateY(100%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        "bounce-subtle": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-5px)" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "ping": {
+          "0%": { transform: "scale(1)", opacity: "1" },
+          "75%, 100%": { transform: "scale(2)", opacity: "0" },
         },
       },
       animation: {
@@ -100,12 +124,27 @@ export default {
         "fade-in-up": "fade-in-up 0.5s ease-out",
         "scale-in": "scale-in 0.2s ease-out",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
+        "glow-pulse-pink": "glow-pulse-pink 2s ease-in-out infinite",
         "slide-in-right": "slide-in-right 0.3s ease-out",
+        "slide-in-left": "slide-in-left 0.3s ease-out",
+        "slide-up": "slide-up 0.4s ease-out",
+        "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
+        "spin-slow": "spin-slow 3s linear infinite",
+        "ping": "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
       },
       backgroundImage: {
         "gradient-primary": "var(--gradient-primary)",
+        "gradient-secondary": "var(--gradient-secondary)",
         "gradient-hero": "var(--gradient-hero)",
         "gradient-card": "var(--gradient-card)",
+        "gradient-glass": "var(--gradient-glass)",
+      },
+      boxShadow: {
+        "glow-cyan": "var(--shadow-glow-cyan)",
+        "glow-pink": "var(--shadow-glow-pink)",
+        "glow-green": "var(--shadow-glow-green)",
+        "elevation": "var(--shadow-elevation)",
+        "card": "var(--shadow-card)",
       },
     },
   },

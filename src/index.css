@@ -8,54 +8,63 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
+    /* Gaming Dark Theme - Mobile First */
+    --background: 0 0% 5%;
     --foreground: 0 0% 98%;
 
-    --card: 240 8% 8%;
+    --card: 0 0% 8%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 8% 8%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 193 100% 50%;
-    --primary-foreground: 240 10% 3.9%;
+    /* Neon Cyan Primary */
+    --primary: 180 100% 50%;
+    --primary-foreground: 0 0% 5%;
 
-    --secondary: 270 91% 65%;
+    /* Neon Pink Secondary */
+    --secondary: 330 100% 60%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 5% 26%;
-    --muted-foreground: 240 5% 64.9%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 64%;
 
-    --accent: 142 76% 36%;
-    --accent-foreground: 0 0% 98%;
+    /* Success Green */
+    --accent: 160 100% 50%;
+    --accent-foreground: 0 0% 5%;
 
-    --destructive: 0 84.2% 60.2%;
+    /* Error Red */
+    --destructive: 0 100% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 6% 16%;
-    --input: 240 6% 16%;
-    --ring: 193 100% 50%;
+    --border: 0 0% 16%;
+    --input: 0 0% 12%;
+    --ring: 180 100% 50%;
 
-    --radius: 0.75rem;
+    --radius: 1rem;
 
-    --sidebar-background: 240 10% 3.9%;
+    --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 193 100% 50%;
-    --sidebar-primary-foreground: 240 10% 3.9%;
-    --sidebar-accent: 240 8% 8%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 8%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 6% 16%;
-    --sidebar-ring: 193 100% 50%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 180 100% 50%;
 
-    /* Gaming gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(193 100% 50%) 0%, hsl(270 91% 65%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(193 100% 50% / 0.2) 0%, hsl(270 91% 65% / 0.2) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(240 8% 10%) 0%, hsl(240 8% 6%) 100%);
+    /* Gaming Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(180 100% 50%) 0%, hsl(330 100% 60%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(330 100% 60%) 0%, hsl(270 100% 60%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(180 100% 50% / 0.15) 0%, hsl(330 100% 60% / 0.15) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(0 0% 15% / 0.3) 0%, hsl(0 0% 8% / 0.3) 100%);
     
-    /* Gaming shadows */
-    --shadow-glow: 0 0 40px hsl(193 100% 50% / 0.3);
-    --shadow-glow-secondary: 0 0 40px hsl(270 91% 65% / 0.3);
-    --shadow-elevation: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
+    /* Gaming Shadows & Glows */
+    --shadow-glow-cyan: 0 0 30px hsl(180 100% 50% / 0.4);
+    --shadow-glow-pink: 0 0 30px hsl(330 100% 60% / 0.4);
+    --shadow-glow-green: 0 0 30px hsl(160 100% 50% / 0.4);
+    --shadow-elevation: 0 10px 40px -10px hsl(0 0% 0% / 0.8);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.5);
   }
 }
 
