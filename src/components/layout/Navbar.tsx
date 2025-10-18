@@ -1,15 +1,21 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, Zap, Bell } from "lucide-react";
+import { Menu, X, Zap, Bell, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isAuthenticated = false; // Replace with actual auth check
+  const { user, isAdmin } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
   };
 
   return (
@@ -28,18 +34,25 @@ const Navbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
-            {isAuthenticated ? (
+            {user ? (
               <>
+                {isAdmin && (
+                  <Link to="/admin">
+                    <Button variant="ghost" size="sm" className="gap-2">
+                      <Shield className="h-4 w-4" />
+                      Admin
+                    </Button>
+                  </Link>
+                )}
                 <Button variant="ghost" size="icon" className="relative">
                   <Bell className="h-5 w-5" />
                   <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 bg-secondary border-0">
-                    3
+                    0
                   </Badge>
                 </Button>
-                <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-glass backdrop-blur-md rounded-lg border border-primary/20">
-                  <Zap className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">$125.50</span>
-                </div>
+                <Button variant="ghost" size="sm" onClick={handleLogout}>
+                  Logout
+                </Button>
               </>
             ) : (
               <>
@@ -69,19 +82,23 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-3 animate-slide-up">
-            {isAuthenticated ? (
+            {user ? (
               <>
-                <div className="flex items-center justify-between p-3 bg-gradient-glass backdrop-blur-md rounded-lg border border-primary/20">
-                  <span className="text-sm text-muted-foreground">Balance</span>
-                  <div className="flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-primary" />
-                    <span className="text-lg font-bold">$125.50</span>
-                  </div>
-                </div>
+                {isAdmin && (
+                  <Link to="/admin" onClick={toggleMenu}>
+                    <Button variant="outline" size="sm" className="w-full gap-2">
+                      <Shield className="h-4 w-4" />
+                      Admin Panel
+                    </Button>
+                  </Link>
+                )}
                 <Button variant="outline" size="sm" className="w-full justify-start gap-2">
                   <Bell className="h-4 w-4" />
                   Notifications
-                  <Badge className="ml-auto bg-secondary border-0">3</Badge>
+                  <Badge className="ml-auto bg-secondary border-0">0</Badge>
+                </Button>
+                <Button variant="ghost" size="sm" className="w-full" onClick={handleLogout}>
+                  Logout
                 </Button>
               </>
             ) : (
