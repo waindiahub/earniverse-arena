@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
-const { auth } = require('./auth');
-const db = require('./database');
+const { auth } = require('../auth');
+const db = require('../database');
 
 const router = express.Router();
 
