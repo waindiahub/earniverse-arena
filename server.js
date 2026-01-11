@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3001;
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:8080', 'http://localhost:5173', 'http://127.0.0.1:8080'],
+  origin: '*',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
