@@ -112,25 +112,29 @@ router.post('/agents', [
     const saltRounds = 12;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    // Create user
-    const [userResult] = await db.execute(
-      'INSERT INTO users (email, password_hash, email_confirmed) VALUES (?, ?, ?)',
-      [email, passwordHash, true]
-    );
+    // Generate UUID for new user (compatible with both UUID and auto-increment)
+    const crypto = require('crypto');
+    const userId = `${crypto.randomUUID().replace(/-/g, '')}-f080-11f0-83bc-0050565ece67`.slice(0, 36);
 
-    const userId = userResult.insertId;
+    // Create user with explicit ID
+    await db.execute(
+      'INSERT INTO users (id, email, password_hash, email_confirmed) VALUES (?, ?, ?, ?)',
+      [userId, email, passwordHash, true]
+    );
 
     // Create profile
     await db.execute(
-      'INSERT INTO profiles (user_id, full_name) VALUES (?, ?)',
+      'INSERT INTO profiles (user_id, full_name, created_at, updated_at) VALUES (?, ?, NOW(), NOW())',
       [userId, fullName]
     );
 
     // Assign agent role
     await db.execute(
-      'INSERT INTO user_roles (user_id, role) VALUES (?, ?)',
+      'INSERT INTO user_roles (user_id, role, created_at) VALUES (?, ?, NOW())',
       [userId, 'agent']
     );
+
+    console.log(`✅ Agent created successfully: ${email} (ID: ${userId})`);
 
     res.status(201).json({ 
       message: 'Agent created successfully',
