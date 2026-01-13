@@ -81,6 +81,72 @@ router.put('/:id/role', [
   }
 });
 
+// Create agent (admin only)
+router.post('/agents', [
+  auth,
+  adminOnly,
+  body('email').isEmail().normalizeEmail(),
+  body('password').isLength({ min: 6 }),
+  body('fullName').trim().isLength({ min: 2 })
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { email, password, fullName } = req.body;
+
+    // Check if user exists
+    const [existingUsers] = await db.execute(
+      'SELECT id FROM users WHERE email = ?',
+      [email]
+    );
+
+    if (existingUsers.length > 0) {
+      return res.status(400).json({ error: 'User with this email already exists' });
+    }
+
+    // Hash password
+    const bcrypt = require('bcryptjs');
+    const saltRounds = 12;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+
+    // Create user
+    const [userResult] = await db.execute(
+      'INSERT INTO users (email, password_hash, email_confirmed) VALUES (?, ?, ?)',
+      [email, passwordHash, true]
+    );
+
+    const userId = userResult.insertId;
+
+    // Create profile
+    await db.execute(
+      'INSERT INTO profiles (user_id, full_name) VALUES (?, ?)',
+      [userId, fullName]
+    );
+
+    // Assign agent role
+    await db.execute(
+      'INSERT INTO user_roles (user_id, role) VALUES (?, ?)',
+      [userId, 'agent']
+    );
+
+    res.status(201).json({ 
+      message: 'Agent created successfully',
+      user: {
+        id: userId,
+        email,
+        fullName,
+        role: 'agent'
+      }
+    });
+  } catch (error) {
+    console.error('Create agent error:', error);
+    res.status(500).json({ error: 'Failed to create agent' });
+  }
+});
+
 // Update user profile
 router.put('/profile', [
   auth,
